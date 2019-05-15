@@ -21,7 +21,14 @@ public class MyBatisUtil {
 //    private MyBatisUtil() {
 //
 //    }
-
+    //如果想要改成自动的话，可以在MyBatisUtil中的下面openSession方法里面传入true，这样mybatis就会自动提交事务了，如果传入false或者没有传入任何参数，他是不会自动提交事务的。
+    //
+    ////自动提交事务
+    //sqlSessionFactory.openSession(true);
+    //
+    ////不自动提交事务
+    //sqlSessionFactory.openSession(false);
+    //sqlSessionFactory.openSession();
     private static volatile SqlSessionFactory sqlSessionFactory;
 
     public static SqlSession getSqlSession() {

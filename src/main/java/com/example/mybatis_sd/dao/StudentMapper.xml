@@ -6,7 +6,34 @@
 <mapper namespace="mybatis_sd">
 
     <!--parameterType可省略-->
-    <insert id="insertStudent" parameterType="student">
-        INSERT INTO t_student(name,age,score) VALUES (#{name},#{age},#{score})
+    <!--<insert id="insertStudent" parameterType="student">-->
+        <!--INSERT INTO t_student(name,age,score) VALUES (#{name},#{age},#{score})-->
+    <!--</insert>-->
+
+
+    <!--在之前的示例中，我们使用了mysql主键自增的策略，当插入数据库后，我们才能获取到该数据的主键，获取主键的操作可以使用下面方式：-->
+
+    <insert id="insertStudent">
+        INSERT INTO t_student(name,age,score) VALUES (#{name},#{age},#{score});
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
     </insert>
+    <!--这样子在mybatis完成插入数据后，会将该数据的主键查询出来，重写Student的toString方法，然后通过下面示例可以看到被插入student数据的主键：-->
+
+    <update id="updateStudent">
+    UPDATE t_student set name=#{name},age=#{age},score=#{score} where id=#{id}
+   </update>
+
+
+    <select id="selectAllStudents" resultType="student">
+    SELECT id,name,age,score FROM t_student
+   </select>
+
+
+    <!--这里面的’%’ #{name} ‘%’之间是没有+号的，即这里的字符串拼接不需要+号，而是需要空格。-->
+    <select id="selectStudentByName" resultType="student">
+    SELECT id,name,age,score FROM t_student where name like '%' #{name} '%'
+    </select>
+
 </mapper>

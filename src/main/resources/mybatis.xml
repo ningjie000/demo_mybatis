@@ -4,11 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <!--注册配置文件-->
+    <!-- 注册db.properties属性文件 -->
+    <!--作用就是注册db.properties属性文件，这样子就可以获取里面的数据库信息了。-->
     <properties resource="db.properties"/>
+
+    <!--注册实体类（JavaBean）的全限定性类名的别名-->
+    <!--因为在写mapper配置文件的时候，需要写上一些javabean类的全限定名-->
+    <!--，这样子就不太方便，此时就可以使用typeAliases标签设置该javabean类的别名，-->
+    <!--这样子就不用再写包名了，减少冗余-->
+    <!--<typeAliases>-->
+        <!--<typeAlias type="com.example.mybatis_sd.bean.Student" alias="student"/>-->
+    <!--</typeAliases>-->
+
+    <!--上面的是第一种方式，倘若有个多个javabean的话，需要写多个typeAlias，此时我们可以使用package指定一个包名，mybatis会在这个包名下搜索需要的JavaBean。-->
+
     <typeAliases>
-        <typeAlias type="com.example.mybatis_sd.bean.Student" alias="student"/>
+        <package name="com.example.mybatis_sd.bean"/>
     </typeAliases>
+
+    <!--指定默认数据库，如可选线上和开发-->
+    <!--transactionManager标签-->
+    <!--该标签用于指定MyBatis所使用的事务管理器。 MyBatis 支持两种事务管理器类型：-->
+    <!--JDBC-->
+    <!--该事务器就是我们之前通过Connection的commit()方法提交，通过rollback()方法回滚，默认是需要手动提交的。-->
+    <!--MANAGED-->
+    <!--由容器来管理事务的整个事务的生命周期，默认情况下会关闭连接，将来学习spring框架之后，就不用在配置事务管理器了，spring会使用自带的管理器。-->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -20,6 +40,7 @@
             </dataSource>
         </environment>
     </environments>
+
     <mappers>
         <!--注册映射文件-->
         <mapper resource="com/example/mybatis_sd/dao/StudentMapper.xml"/>

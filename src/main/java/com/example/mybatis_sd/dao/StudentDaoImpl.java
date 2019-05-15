@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @Author: NJ
@@ -59,4 +60,35 @@ public class StudentDaoImpl implements StudentDao {
 
         }
     }
+
+    /**
+     * 修改后的方法，通过工具类获取SqlSessionFactory
+     * SqlSession继承了AutoCloseable接口，所以可以将其放到try后面自动关闭。
+     * @param student
+     */
+    @Override
+    public void updateStudent(Student student) {
+        //SqlSession继承了AutoCloseable接口，所以可以自动关闭
+        try(SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            //新增数据操作
+            sqlSession.update("updateStudent", student);
+            //提交SqlSession
+            sqlSession.commit();
+
+        }
+    }
+
+    @Override
+    public List<Student> selectAllStudents() {
+
+        List<Student> result = null;
+
+        try(SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            //查询数据操作
+            result = sqlSession.selectList("selectAllStudents");
+        }
+
+        return result;
+    }
+
 }
