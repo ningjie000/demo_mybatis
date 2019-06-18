@@ -30,7 +30,6 @@ public class MyBatisUtil {
     //sqlSessionFactory.openSession(false);
     //sqlSessionFactory.openSession();
     private static volatile SqlSessionFactory sqlSessionFactory;
-
     public static SqlSession getSqlSession() {
         try {
             if (sqlSessionFactory == null) {

@@ -2,11 +2,13 @@ package com.example.mybatis_sd.dao;
 
 import com.example.mybatis_sd.bean.Student;
 import com.example.mybatis_sd.util.MyBatisUtil;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import java.beans.Transient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -19,7 +21,12 @@ import java.util.List;
 public class StudentDaoImpl implements StudentDao {
 
     private SqlSession sqlSession;
+//    是一 自定义 DAO 口， 然后将其装配 Spring IoC 容器 而现 分多 ，如果一
+//    个地定义 比较麻烦， 个时候就可以使 MapperScannerConfigurer 类来定义扫描了 ，
 
+
+
+// 需要整合前，整合后应该擦除sqlSession接口的直接使用
 //    @Override
 //    public void insertStudent(Student student) {
 //        try {
@@ -90,5 +97,6 @@ public class StudentDaoImpl implements StudentDao {
 
         return result;
     }
+
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @Author: NJ
- * @Description:
+ * @Description: 自定义dao接口
  * @Date: 2019/5/5
  */
 public interface StudentDao {

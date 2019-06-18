@@ -3,6 +3,7 @@ package com.example.mybatis_sd.demo;
 import com.example.mybatis_sd.bean.Student;
 import com.example.mybatis_sd.dao.StudentDao;
 import com.example.mybatis_sd.dao.StudentDaoImpl;
+import com.example.mybatis_sd.util.SSHHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,6 +60,17 @@ public class DemoApplicationTests {
         for (Student student : students) {
             System.out.println(student);
         }
+    }
+
+    @Test
+    public void testStr(){
+        try {
+            SSHHelper.connectionHost("wonders", "123456","10.1.192.135",22);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String exec = SSHHelper.exec("10.1.192.135", "wonders", "123456", 21, "");
+        System.out.println(exec);
     }
 
 }
